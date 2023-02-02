@@ -57,7 +57,12 @@
   :custom
   (eshell-prompt-regexp (rx bol "In " (one-or-more anything) ":\n"))
   :config
-  (set-face-attribute 'eshell-prompt nil :extend t)
+  (ef-themes-with-colors
+    (set-face-attribute 'eshell-prompt nil
+                        :foreground fg-main
+                        :background bg-alt
+                        :weight 'bold
+                        :extend t))
   (defun colonq/eshell-prompt ()
     (let ((branch (magit-get-current-branch)))
       (concat "In " (colonq/replace-home default-directory)

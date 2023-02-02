@@ -20,4 +20,4 @@
   (pcomplete-cycle-completions nil))
 
 (provide 'colonq-company)
-;;; colonq-company ends here
+;;; colonq-company.el ends here

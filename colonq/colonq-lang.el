@@ -16,4 +16,4 @@
 (require 'colonq-yaml)
 
 (provide 'colonq-lang)
-;;; colonq-lang ends here
+;;; colonq-lang.el ends here

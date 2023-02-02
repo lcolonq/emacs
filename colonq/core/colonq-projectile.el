@@ -17,4 +17,4 @@
   (setf (cdr projectile-mode-map) nil))
 
 (provide 'colonq-projectile)
-;;; colonq-projectile ends here
+;;; colonq-projectile.el ends here

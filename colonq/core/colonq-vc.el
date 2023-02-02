@@ -30,7 +30,7 @@
     ("b" magit-blame-addition "blame")
     ("q" magit-blame-quit "quit-blame")
     ("T" magit-stash-worktree)
-    ("c" (magit-commit-create '("-S")) "commit")
+    ("c" magit-commit-create "commit")
     ("p" magit-push-current-to-upstream "push")
     ("u" magit-pull-from-upstream "pull"))
   (setq
@@ -59,4 +59,4 @@
   (add-hook 'with-editor-mode-hook 'colonq/with-editor-setup))
 
 (provide 'colonq-vc)
-;;; colonq-vc ends here
+;;; colonq-vc.el ends here

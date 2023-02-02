@@ -8,4 +8,4 @@
 (require 'colonq-lsp)
 
 (provide 'colonq-editor)
-;;; colonq-editor ends here
+;;; colonq-editor.el ends here

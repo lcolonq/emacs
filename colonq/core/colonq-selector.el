@@ -160,4 +160,4 @@
   )
 
 (provide 'colonq-selector)
-;;; colonq-selector ends here
+;;; colonq-selector.el ends here

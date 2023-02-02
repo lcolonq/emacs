@@ -52,11 +52,20 @@
       (eshell-mode))))
 
 (defhydra colonq/repl-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
-  "REPLs"
+  "Dispatcher > REPLs"
   ("<escape>" 'keyboard-escape-quit)
   ("l" ielm "elisp")
   ("x" nix-repl "nix")
   ("y" (switch-to-buffer (make-comint "Python REPL" "python3" nil)) "python"))
+
+(defhydra colonq/layout-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
+  "Dispatcher > Layout"
+  ("<escape>" 'keyboard-escape-quit)
+  ("l" colonq/reload-eyebrowse-config "load")
+  ("s" colonq/save-eyebrowse-config "save")
+  ("d" colonq/lock-window "dedicated")
+  ("g" colonq/set-gdb-source-window "gdb")
+  ("i" colonq/setup-stream "initial"))
 
 (defhydra colonq/dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
   "Dispatcher"
@@ -94,8 +103,6 @@
   ("B" colonq/visit-bookmark)
   ("f" selector-for-files "file")
   ("F" (dired "."))
-  ("g" colonq/gpg-dispatcher/body "gpg")
-  ("G" epa-list-keys)
   ("h" colonq/repl-dispatcher/body "repl")
   ("H" ielm)
   ("i" (call-interactively colonq/contextual-ide) "lang")
@@ -104,8 +111,9 @@
   ("J" flycheck-next-error)
   ("k" evil-quit)
   ("K" eyebrowse-close-window-config)
-  ("l" define-word-at-point)
-  ("L" cd)
+  ("l" colonq/layout-dispatcher/body)
+  ("L" colonq/reload-eyebrowse-config)
+  ("m" colonq/music-dispatcher/body)
   ("o" colonq/navigate "buf")
   ("O" selector-for-buffers)
   ("p" projectile-switch-project "proj")
@@ -120,13 +128,16 @@
   ("w" evil-write)
   ("x" shrink-window-horizontally :color red)
   ("X" enlarge-window-horizontally :color red)
+  ("y" shrink-window :color red)
+  ("Y" enlarge-window :color red)
   ("z" eyebrowse-switch-to-window-config)
   ("Z" eyebrowse-rename-window-config))
 
 (defun colonq/dispatcher ()
   "Open Dispatcher menu."
   (interactive)
-  (let ((hydra-is-helpful t))
+  ;; (let ((hydra-is-helpful t))
+  (let ((hydra-is-helpful nil))
     (call-interactively 'colonq/dispatcher/body)))
 
 (defun colonq/dispatcher-silent ()
@@ -136,4 +147,4 @@
     (call-interactively 'colonq/dispatcher/body)))
 
 (provide 'colonq-dispatcher)
-;;; colonq-dispatcher ends here
+;;; colonq-dispatcher.el ends here

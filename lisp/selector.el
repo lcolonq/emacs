@@ -53,12 +53,11 @@
 (define-key selector-minibuffer-map (kbd "<prior>") 'selector-previous-source)
 (define-key selector-minibuffer-map (kbd "<next>") 'selector-next-source)
 
-(when (fboundp 'evil-define-key)
-  (evil-define-key 'normal selector-minibuffer-map
-    (kbd "k") 'selector-previous
-    (kbd "j") 'selector-next
-    (kbd "K") 'selector-previous-source
-    (kbd "J") 'selector-next-source))
+(evil-define-key 'normal selector-minibuffer-map
+  (kbd "k") 'selector-previous
+  (kbd "j") 'selector-next
+  (kbd "K") 'selector-previous-source
+  (kbd "J") 'selector-next-source)
 
 (defun selector-minibuffer-line (str)
   "Write STR to the minibuffer."
@@ -281,10 +280,7 @@ ACTIONS is a list of actions, which can be:
         (setq selector--last pattern
               selector--index 0
               selector--source 0
-              selector--matching (selector-matching-sources
-                               selector--sources
-                               pattern))))
-    (message (format "%s" (list selector--matching)))
+              selector--matching (selector-matching-sources selector--sources pattern))))
     (-map #'selector-display-source (selector-nearby selector--matching))
     (goto-char (minibuffer-prompt-end))
     (put-text-property (line-end-position) (point-max) 'readonly t))

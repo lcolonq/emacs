@@ -13,11 +13,48 @@
   :config
   (exwm-randr-enable))
 
+(defun colonq/setup-stream ()
+  "Configure windows for streaming."
+  (interactive)
+  (eyebrowse-switch-to-window-config 0)
+  (split-window-horizontally -70)
+  (windmove-right)
+  (split-window-vertically -28))
+
 (defun colonq/external-monitor ()
   "Setup external monitor."
   (interactive)
   (start-process-shell-command "xrandr" nil "multi")
-  (exwm-workspace-switch 0))
+  (exwm-workspace-add 1)
+  (exwm-workspace-switch 1)
+  )
+
+(defvar colonq/saved-eyebrowse-config nil)
+(defun colonq/save-eyebrowse-config ()
+  "Save the current eyebrowse window config."
+  (interactive)
+  (let* ((current-slot (eyebrowse--get 'current-slot))
+         (window-configs (eyebrowse--get 'window-configs))
+         (current-tag (nth 2 (assoc current-slot window-configs))))
+    (setq
+     colonq/saved-eyebrowse-config
+     (eyebrowse--current-window-config current-slot current-tag))))
+(defun colonq/reload-eyebrowse-config ()
+  "Reload the saved eyebrowse window config."
+  (interactive)
+  (when colonq/saved-eyebrowse-config
+    (let ((current-slot (eyebrowse--get 'current-slot)))
+      (eyebrowse--update-window-config-element
+       (cons current-slot (cdr colonq/saved-eyebrowse-config)))
+      (eyebrowse--load-window-config current-slot))))
+
+(defun colonq/lock-window ()
+  "Toggle whether the current window is dedicated."
+  (interactive)
+  (let ((win (get-buffer-window (current-buffer)))
+        (new (not (window-dedicated-p))))
+    (message (s-concat "Window dedicated: " (if new "yes" "no")))
+    (set-window-dedicated-p win (not (window-dedicated-p win)))))
 
 (defun colonq/other-monitor ()
   "Switch focus to the other monitor."
@@ -174,6 +211,10 @@
     (define-key exwm-mode-map (kbd "M-l") 'windmove-right)
     (define-key exwm-mode-map (kbd "M-k") 'windmove-up)
     (define-key exwm-mode-map (kbd "M-j") 'windmove-down)
+    (define-key exwm-mode-map (kbd "M-H") 'buf-move-left)
+    (define-key exwm-mode-map (kbd "M-L") 'buf-move-right)
+    (define-key exwm-mode-map (kbd "M-K") 'buf-move-up)
+    (define-key exwm-mode-map (kbd "M-J") 'buf-move-down)
     (cd "~")
     (colonq/exwm-normal))
   (add-hook 'exwm-mode-hook 'colonq/exwm-setup)

@@ -7,8 +7,10 @@
 (require 'colonq-dired)
 (require 'colonq-gpg)
 (require 'colonq-man)
+(require 'colonq-music)
 (require 'colonq-pdf)
 (require 'colonq-video)
+(provide 'colonq-media)
 
 (provide 'colonq-media)
-;;; colonq-media ends here
+;;; colonq-media.el ends here

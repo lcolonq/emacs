@@ -7,4 +7,4 @@
 (use-package hydra)
 
 (provide 'colonq-hydra)
-;;; colonq-hydra ends here
+;;; colonq-hydra.el ends here

@@ -7,6 +7,11 @@
 
 (defvar colonq/bookmarks
   '(("twitch" . "https://twitch.tv")
+    ("twitch chat" . "https://www.twitch.tv/popout/lcolonq/chat?popout=")
+    ("twitter" . "https://twitter.com")
+    ("youtube" . "https://youtube.com")
+    ("reddit /r/lcolonq" . "https://old.reddit.com/r/lcolonq")
+    ("fugi reactive" . "https://discord-reactive-images.fugi.tech")
      ))
 
 (use-package shr
@@ -45,6 +50,14 @@
                  query)))
     (browse-url (concat "https://en.wikipedia.org/w/index.php?search=" query))))
 
+(defun colonq/search-bulbapedia (&optional query)
+  "Search for QUERY on Bulbapedia."
+  (interactive)
+  (let ((query (if (called-interactively-p 'any)
+                   (read-string "Query: " query)
+                 query)))
+    (browse-url (concat "https://bulbapedia.bulbagarden.net/w/index.php?search=" query))))
+
 (defun colonq/search-scryfall (&optional query)
   "Search for QUERY on Scryfall."
   (interactive)
@@ -77,6 +90,10 @@
           "Search Wikipedia"
           :type 'dummy
           :action (lambda (_) (colonq/search-wikipedia (selector-input))))
+         (selector-candidate-create
+          "Search Bulbapedia"
+          :type 'dummy
+          :action (lambda (_) (colonq/search-bulbapedia (selector-input))))
          (selector-candidate-create
           "Search Scryfall"
           :type 'dummy

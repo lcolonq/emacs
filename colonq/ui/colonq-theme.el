@@ -17,19 +17,20 @@
   :width 'normal
   :slant 'normal))
 
-(use-package whitespace
+(use-package ef-themes
   :config
-  (setq whitespace-style '(face tabs))
-  (whitespace-mode))
-
-(use-package moe-theme
-  :config
-  (setq moe-theme-mode-line-color 'w/b)
-  (moe-dark))
+  (ef-themes-select 'ef-tritanopia-dark)
+  (ef-themes-with-colors
+    (set-face-attribute 'vertical-border nil
+                        :foreground bg-alt
+                        :background bg-alt)
+    (set-face-attribute 'fringe nil
+                        :foreground bg-alt
+                        :background bg-alt)))
 
 (use-package outshine
   :config
   (add-hook 'outline-minor-mode-hook 'outshine-mode))
 
 (provide 'colonq-theme)
-;;; colonq-theme ends here
+;;; colonq-theme.el ends here

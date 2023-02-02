@@ -7,4 +7,4 @@
 (require 'use-package)
 
 (provide 'colonq-package)
-;;; colonq-package ends here
+;;; colonq-package.el ends here

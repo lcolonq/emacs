@@ -11,4 +11,4 @@
 (require 'colonq-org)
 
 (provide 'colonq-ui)
-;;; colonq-ui ends here
+;;; colonq-ui.el ends here

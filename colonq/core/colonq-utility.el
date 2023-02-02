@@ -120,12 +120,12 @@
 (defun colonq/screenshot ()
   "Take a screenshot."
   (interactive)
-  (start-process "scrot" nil "scrot" "-e" "mv $f ~/archive/images/sorted/shots/; emacsclient -n ~/archive/images/sorted/shots/$f"))
+  (start-process "scrot" nil "scrot" "-e" "mv $f ~/shots/; emacsclient -n ~/shots/$f"))
 
 (defun colonq/snip ()
   "Copy an area of the screen to an image."
   (interactive)
-  (start-process "scrot" nil "scrot" "-s" "-e" "mv $f ~/archive/images/sorted/shots/; emacsclient -n ~/archive/images/sorted/shots/$f"))
+  (start-process "scrot" nil "scrot" "-s" "-e" "mv $f ~/shots/; emacsclient -n ~/shots/$f"))
 
 (defun colonq/pop-mark ()
   "Pop off mark ring into the buffer's actual mark.
@@ -207,4 +207,4 @@ accessible."
       (ls-rec directory))))
 
 (provide 'colonq-utility)
-;;; colonq-utility ends here
+;;; colonq-utility.el ends here
