@@ -19,8 +19,10 @@
 
 (use-package ef-themes
   :config
-  (ef-themes-select 'ef-tritanopia-dark)
+  ;; (ef-themes-select 'ef-tritanopia-dark)
+  (ef-themes-select 'ef-duo-dark)
   (ef-themes-with-colors
+    (setenv "COLONQ_BGCOLOR" bg-main)
     (set-face-attribute 'vertical-border nil
                         :foreground bg-alt
                         :background bg-alt)

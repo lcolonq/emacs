@@ -48,6 +48,7 @@
 (blink-cursor-mode -1) ;; Don't blink the cursor
 (show-paren-mode -1) ;; Don't highlight parentheses
 (tooltip-mode -1) ;; Don't display tooltips as popups, use the echo area instead
+(global-hl-line-mode) ;; Highlight the current line in all buffers
 
 (column-number-mode) ;; Display column number in the mode line
 (recentf-mode) ;; Enable recording recently-visited files

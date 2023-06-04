@@ -10,6 +10,7 @@
 (require 'colonq-fennel)
 (require 'colonq-nix)
 (require 'colonq-python)
+(require 'colonq-purescript)
 (require 'colonq-rust)
 (require 'colonq-web)
 (require 'colonq-xml)

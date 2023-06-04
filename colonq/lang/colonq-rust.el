@@ -14,7 +14,7 @@
     ("S" lsp-workspace-restart "start")
     ("i" lsp-execute-code-action "poke")
     ("e" flycheck-next-error "goto err")
-    ("r" rustic-cargo-run "run")
+    ("r" (lambda () (interactive) (start-process "colonq" nil "~/src/colonq/launch.sh")) "run")
     ("D" xref-find-definitions "goto def")
     ("R" xref-find-references "goto refs"))
   (defun colonq/rust-setup ()

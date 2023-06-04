@@ -13,6 +13,10 @@
   :config
   (exwm-randr-enable))
 
+;; (use-package exwm-systemtray
+;;   :config
+;;   (exwm-systemtray-enable))
+
 (defun colonq/setup-stream ()
   "Configure windows for streaming."
   (interactive)

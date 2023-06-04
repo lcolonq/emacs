@@ -28,10 +28,11 @@
   (lsp-flycheck-live-reporting nil)
   :hook (lsp-mode . lsp-ui-mode)
   :config
-  (set-face-attribute 'lsp-ui-doc-background nil :background "#2c2c2c"))
+  (ef-themes-with-colors
+    (set-face-attribute 'lsp-ui-doc-background nil :background bg-main)))
 
-(use-package eglot
-  :custom (eglot-stay-out-of '(eldoc-documentation-strategy)))
+;; (use-package eglot
+;;   :custom (eglot-stay-out-of '(eldoc-documentation-strategy)))
 
 (provide 'colonq-lsp)
 ;;; colonq-lsp.el ends here

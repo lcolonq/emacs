@@ -12,6 +12,8 @@
     ("youtube" . "https://youtube.com")
     ("reddit /r/lcolonq" . "https://old.reddit.com/r/lcolonq")
     ("fugi reactive" . "https://discord-reactive-images.fugi.tech")
+    ("orange website hn hacker news hackernews" . "https://news.ycombinator.com")
+    ("learnxinyminutes learn x in y" . "https://learnxinyminutes.com")
      ))
 
 (use-package shr
@@ -34,13 +36,13 @@
   (let ((query (read-string "URL: " "https://")))
     (browse-url query)))
 
-(defun colonq/search-google (&optional query)
-  "Search for QUERY using Google."
+(defun colonq/search-ddg (&optional query)
+  "Search for QUERY using DuckDuckGo."
   (interactive)
   (let ((query (if (called-interactively-p 'any)
                    (read-string "Query: " query)
                  query)))
-    (browse-url (concat "https://www.google.com/search?q=" query))))
+    (browse-url (concat "https://www.duckduckgo.com/?q=" query))))
 
 (defun colonq/search-wikipedia (&optional query)
   "Search for QUERY on Wikipedia."
@@ -83,9 +85,9 @@
    "Browser"
    :candidates
    (list (selector-candidate-create
-          "Search Google"
+          "Search DuckDuckGo"
           :type 'dummy
-          :action (lambda (_) (colonq/search-google (selector-input))))
+          :action (lambda (_) (colonq/search-ddg (selector-input))))
          (selector-candidate-create
           "Search Wikipedia"
           :type 'dummy

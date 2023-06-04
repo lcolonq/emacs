@@ -99,6 +99,8 @@
   ("7" eyebrowse-switch-to-window-config-6)
   ("8" eyebrowse-switch-to-window-config-7)
   ("9" eyebrowse-switch-to-window-config-8)
+  ("a" fig/voice-hydra/body "twitch")
+  ("A" fig/end-transcribe "twitch")
   ("b" colonq/browser-dispatcher/body "web")
   ("B" colonq/visit-bookmark)
   ("f" selector-for-files "file")

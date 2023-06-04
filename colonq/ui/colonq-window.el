@@ -5,6 +5,17 @@
 (require 'colonq-package)
 (require 'colonq-hydra)
 
+(setq max-mini-window-height 0.25)
+
+(push '(stream-primary . writable) window-persistent-parameters)
+(defun colonq/get-stream-primary-window ()
+  "Get the marked primary stream window."
+  (-first (lambda (w) (window-parameter w 'stream-primary)) (window-list)))
+(defun colonq/set-stream-primary-window ()
+  "Set the marked primary stream window to the current window."
+  (interactive)
+  (set-window-parameter (get-buffer-window (current-buffer)) 'stream-primary t))
+
 (use-package shackle
   :custom
   (shackle-default-rule '(:same t))
@@ -21,7 +32,14 @@
         (let ((win (colonq/get-gdb-source-window)))
           (set-window-buffer win buf)
           win)))
-     ))
+     (janet-mode
+      :custom
+      (lambda (buf alist plist)
+        (let ((win (colonq/get-stream-primary-window)))
+          (set-window-buffer win buf)
+          win)))
+     )
+   )
   (shackle-mode))
 
 (use-package eyebrowse
