@@ -8,8 +8,9 @@
 (use-package dired
   :custom
   (dired-dwim-target t)
+  (dired-listing-switches "-lvah")
+  (dired-hide-details-preserved-columns '(1 3 5 6 7 8))
   :config
-  (setq dired-listing-switches "-lvah")
   (defun colonq/dired-find-file ()
     (interactive)
     (if (file-directory-p (dired-get-file-for-visit))
@@ -45,7 +46,8 @@
     (kbd "R") 'revert-buffer)
 
    (defun colonq/dired-setup ()
-     (hl-line-mode))
+     (hl-line-mode)
+     (dired-hide-details-mode))
    (add-hook 'dired-mode-hook 'colonq/dired-setup))
 
 (use-package image-dired

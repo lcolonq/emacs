@@ -40,6 +40,7 @@
  visible-cursor nil ;; Reduce cursor annoyance
  scroll-step 1 ;; Don't jump around so much while scrolling
  custom-theme-directory "~/.emacs.d/themes/" ;; Directory for custom themes (mostly unused lately)
+ focus-follows-mouse 'auto-raise ;; Prevent lsp-ui from stealing mouse focus
  )
 
 (menu-bar-mode -1) ;; Don't display menu bar

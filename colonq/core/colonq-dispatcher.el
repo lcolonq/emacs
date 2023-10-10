@@ -67,6 +67,39 @@
   ("g" colonq/set-gdb-source-window "gdb")
   ("i" colonq/setup-stream "initial"))
 
+(defun colonq/toggle-shadow ()
+  "Toggle shadow form."
+  (interactive)
+  (fig//model-toggle "shadow")
+  (fig//toggle-vhs))
+
+(defvar colonq//super-saiyan-enabled nil
+  "Is Super Saiyan mode enabled?")
+(defun colonq/toggle-saiyan ()
+  "Toggle shadow form."
+  (interactive)
+  (fig//toggle-saiyan)
+  (if colonq//super-saiyan-enabled
+      (fig//model-palette-reset)
+    (fig//model-further-beyond))
+  (setq colonq//super-saiyan-enabled (not colonq//super-saiyan-enabled)))
+
+(defun colonq/switch-to-new-form ()
+  "Switch to the new form."
+  (interactive)
+  ;; (fig//toggle-explosion)
+  (fig//model-toggle "new"))
+
+(defhydra colonq/stream-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
+  "Dispatcher > Stream"
+  ("<escape>" 'keyboard-escape-quit)
+  ("c" fig/critical-hit "crit")
+  ("n" colonq/switch-to-new-form "new")
+  ("p" (fig//toggle-persona4) "persona")
+  ("s" colonq/toggle-shadow "shadow")
+  ("f" colonq/toggle-saiyan "further")
+  ("r" (soundboard//play-clip "timestop.ogg") "clock"))
+
 (defhydra colonq/dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
   "Dispatcher"
   ("<escape>" 'keyboard-escape-quit)
@@ -122,6 +155,7 @@
   ("P" colonq/password)
   ("q" colonq/previous-buffer)
   ("Q" eyebrowse-last-window-config)
+  ("r" colonq/stream-dispatcher/body "stream")
   ("s" colonq/shell-here "shell")
   ("S" projectile-run-eshell)
   ("t" colonq/term-here "term")

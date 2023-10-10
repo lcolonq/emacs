@@ -21,6 +21,7 @@
   :config
   ;; (ef-themes-select 'ef-tritanopia-dark)
   (ef-themes-select 'ef-duo-dark)
+  ;; (ef-themes-select 'ef-bio)
   (ef-themes-with-colors
     (setenv "COLONQ_BGCOLOR" bg-main)
     (set-face-attribute 'vertical-border nil

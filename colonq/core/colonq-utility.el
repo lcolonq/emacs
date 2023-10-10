@@ -206,5 +206,7 @@ accessible."
                                (list (funcall fn (expand-file-name f dir))))))))
       (ls-rec directory))))
 
+(use-package moon-phase :load-path "~/lisp")
+
 (provide 'colonq-utility)
 ;;; colonq-utility.el ends here

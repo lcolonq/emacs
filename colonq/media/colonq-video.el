@@ -5,7 +5,7 @@
 (require 'colonq-package)
 (require 'colonq-hydra)
 
-(defvar colonq/video-file-extensions '("mkv" "mp4" "webm" "mp3" "wav" "m4a"))
+(defvar colonq/video-file-extensions '("mkv" "mp4" "webm" "mp3" "wav" "m4a" "ogg"))
 
 (defun colonq/open-video (path)
   "Open the file at PATH with MPV."

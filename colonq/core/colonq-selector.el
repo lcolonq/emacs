@@ -146,7 +146,7 @@
       (defun to-candidate (x)
         (selector-candidate-create (cdr x) :value (car x)))
       (let* ((result (with-temp-buffer
-                       (call-process "rga" nil t nil "-n" query ".")
+                       (call-process "rg" nil t nil "-n" query ".")
                        (buffer-string)))
              (lines (--map (conv (s-split-up-to ":" it 2)) (--filter (not (s-blank? it)) (s-split "\n" result))))
              (files (-uniq (-map #'car lines)))
