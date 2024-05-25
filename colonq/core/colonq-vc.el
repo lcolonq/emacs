@@ -18,7 +18,7 @@
   :config
   (defhydra colonq/vc-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
     "Dispatcher > Version Control"
-    ("<escape>" keyboard-escape-quit)
+    ("<f12>" keyboard-escape-quit)
     ("v" magit-status "status")
     ("h" magit-log-buffer-file "history")
     ("l" magit-log-current "log")

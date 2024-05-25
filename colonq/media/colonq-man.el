@@ -16,6 +16,9 @@
   (define-key Info-mode-map (kbd "b") nil)
   (define-key Info-mode-map (kbd "g") nil)
   (define-key Info-mode-map (kbd "G") nil)
+  (evil-define-key 'motion Info-mode-map
+    (kbd "H") #'Info-prev
+    (kbd "L") #'Info-next)
   (set-face-attribute 'Info-quoted nil :inherit nil)
   (set-face-attribute 'info-menu-star nil :foreground nil))
 

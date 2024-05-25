@@ -53,14 +53,14 @@
 
 (defhydra colonq/repl-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
   "Dispatcher > REPLs"
-  ("<escape>" 'keyboard-escape-quit)
+  ("<f12>" 'keyboard-escape-quit)
   ("l" ielm "elisp")
   ("x" nix-repl "nix")
   ("y" (switch-to-buffer (make-comint "Python REPL" "python3" nil)) "python"))
 
 (defhydra colonq/layout-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
   "Dispatcher > Layout"
-  ("<escape>" 'keyboard-escape-quit)
+  ("<f12>" 'keyboard-escape-quit)
   ("l" colonq/reload-eyebrowse-config "load")
   ("s" colonq/save-eyebrowse-config "save")
   ("d" colonq/lock-window "dedicated")
@@ -92,7 +92,7 @@
 
 (defhydra colonq/stream-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
   "Dispatcher > Stream"
-  ("<escape>" 'keyboard-escape-quit)
+  ("<f12>" 'keyboard-escape-quit)
   ("c" fig/critical-hit "crit")
   ("n" colonq/switch-to-new-form "new")
   ("p" (fig//toggle-persona4) "persona")
@@ -102,7 +102,7 @@
 
 (defhydra colonq/dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
   "Dispatcher"
-  ("<escape>" 'keyboard-escape-quit)
+  ("<f12>" 'keyboard-escape-quit)
   ("<tab>" balance-windows)
   ("<print>" colonq/snip)
   (":" selector-M-x)
@@ -159,6 +159,7 @@
   ("s" colonq/shell-here "shell")
   ("S" projectile-run-eshell)
   ("t" colonq/term-here "term")
+  ("T" (fair/browse-server 'tsuki) "tsuki")
   ("v" colonq/vc-dispatcher/body "vc")
   ("V" magit-status)
   ("w" evil-write)

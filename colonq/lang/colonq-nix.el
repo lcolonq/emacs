@@ -20,7 +20,7 @@
   :config
   (defhydra colonq/nix-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
     "Dispatcher > Nix"
-    ("<escape>" 'keyboard-escape-quit)
+    ("<f12>" 'keyboard-escape-quit)
     ("x" nix-repl "repl")
     ("h" colonq/home-manager-switch "home-manager")
     ("b" build-farm "build farm")))

@@ -14,6 +14,8 @@
   (define-key vterm-mode-map [return] #'vterm-send-return)
   (define-key vterm-mode-map [insert] #'evil-exit-emacs-state)
   (evil-define-key 'insert vterm-mode-map
+    (kbd "<f12>") #'evil-normal-state
+    (kbd "<escape>") #'vterm--self-insert
     (kbd "C-e") #'vterm--self-insert
     (kbd "C-f") #'vterm--self-insert
     (kbd "C-a") #'vterm--self-insert
@@ -35,6 +37,10 @@
 
   (evil-define-key 'normal vterm-mode-map
     (kbd "C-d") #'vterm--self-insert
+    (kbd "M-h") #'windmove-left
+    (kbd "M-l") #'windmove-right
+    (kbd "M-k") #'windmove-up
+    (kbd "M-j") #'windmove-down
     (kbd "p") #'vterm-yank
     (kbd "u") #'vterm-undo
     (kbd "<insert>") #'evil-emacs-state

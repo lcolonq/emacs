@@ -40,6 +40,7 @@
 (defvar selector--index 0)
 (defvar selector--action nil)
 (defvar selector--result nil)
+(defvar selector--drawn-this-frame 0)
 
 (defvar selector-minibuffer-map (make-sparse-keymap))
 (define-key selector-minibuffer-map (kbd "\\") (lambda () (interactive) nil))
@@ -66,11 +67,15 @@
 
 (defun selector-minibuffer-line-face (str face)
   "Write STR to the minibuffer in FACE."
-  (let ((before (point)))
-    (selector-minibuffer-line str)
-    (goto-char before)
-    (forward-line)
-    (put-text-property (line-beginning-position) (point-max) 'face face)))
+  (cl-incf selector--drawn-this-frame) ;; sort of an ugly hack,
+  ;; but this fixes the annoying "cursor jumping" glitch when multiple monitors
+  ;; are active. the real fix probably should live in selector-nearby?
+  (when (< selector--drawn-this-frame selector-minibuffer-lines)
+    (let ((before (point)))
+      (selector-minibuffer-line str)
+      (goto-char before)
+      (forward-line)
+      (put-text-property (line-beginning-position) (point-max) 'face face))))
 
 (defun selector-minibuffer-clear ()
   "Clear minibuffer."
@@ -274,6 +279,7 @@ ACTIONS is a list of actions, which can be:
 
 (defun selector-minibuffer-render ()
   "Draw matching candidates to minibuffer."
+  (setq selector--drawn-this-frame 0)
   (save-excursion
     (let ((pattern (selector-minibuffer-input)))
       (unless (string= pattern selector--last)
@@ -281,7 +287,7 @@ ACTIONS is a list of actions, which can be:
               selector--index 0
               selector--source 0
               selector--matching (selector-matching-sources selector--sources pattern))))
-    (-map #'selector-display-source (selector-nearby selector--matching))
+    (-each (selector-nearby selector--matching) #'selector-display-source)
     (goto-char (minibuffer-prompt-end))
     (put-text-property (line-end-position) (point-max) 'readonly t))
   (selector-update-transient-map))
@@ -297,8 +303,7 @@ ACTIONS is a list of actions, which can be:
       (insert initial)))
   (end-of-line)
   (selector-update-transient-map)
-  (when (fboundp 'evil-insert-state)
-    (evil-insert-state)))
+  )
 
 (defun selector-previous-source ()
   "Move to the previous source."

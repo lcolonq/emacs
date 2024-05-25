@@ -16,6 +16,7 @@
 (setq-default
  indent-tabs-mode nil ;; Default to indenting with spaces
  bidi-display-reordering nil
+ cursor-in-non-selected-windows nil
  )
 
 ;; Set non-package-specific global variables
@@ -40,7 +41,8 @@
  visible-cursor nil ;; Reduce cursor annoyance
  scroll-step 1 ;; Don't jump around so much while scrolling
  custom-theme-directory "~/.emacs.d/themes/" ;; Directory for custom themes (mostly unused lately)
- focus-follows-mouse 'auto-raise ;; Prevent lsp-ui from stealing mouse focus
+ focus-follows-mouse nil ;; Prevent lsp-ui from stealing mouse focus
+ sentence-end-double-space nil ;; Don't whine about spaces after periods
  )
 
 (menu-bar-mode -1) ;; Don't display menu bar
@@ -107,6 +109,13 @@
 (define-key special-mode-map (kbd "q") 'colonq/dispatcher)
 (define-key compilation-mode-map (kbd "q") 'colonq/dispatcher)
 (define-key grep-mode-map (kbd "q") 'colonq/dispatcher)
+
+(use-package hexl
+  :config
+  (define-key hexl-mode-map (kbd "M-h") #'windmove-left)
+  (define-key hexl-mode-map (kbd "M-l") #'windmove-right)
+  (define-key hexl-mode-map (kbd "M-k") #'windmove-up)
+  (define-key hexl-mode-map (kbd "M-j") #'windmove-down))
 
 ;; Windmove bindings that should work in every mode, always
 (global-set-key (kbd "M-h") #'windmove-left)

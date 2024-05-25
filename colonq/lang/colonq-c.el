@@ -18,10 +18,12 @@
 
 (defhydra colonq/ide-c (:color teal :hint nil)
   "Dispatcher > C IDE"
-  ("<escape>" keyboard-escape-quit)
-  ("i" gud-break "break")
-  ("I" gud-remove)
-  ("r" gdb "debugger"))
+  ("<f12>" keyboard-escape-quit)
+  ("i" (compile "make") "build")
+  ;; ("i" gud-break "break")
+  ;; ("I" gud-remove)
+  ;; ("r" gdb "debugger")
+  )
 
 (defun colonq/c-setup ()
   "Custom configuration for C programming."

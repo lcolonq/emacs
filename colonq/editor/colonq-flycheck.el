@@ -45,6 +45,7 @@ Intended for `eldoc-documentation-functions' (which see)."
 (use-package eldoc
   :custom
   (eldoc-idle-delay 0.1)
+  (eldoc-echo-area-prefer-doc-buffer t)
   :config
   (defun colonq/eldoc-display-quick-peek (docs interactive)
     "Display DOCS in a `quick-peek' popup."
@@ -57,7 +58,7 @@ Intended for `eldoc-documentation-functions' (which see)."
               (quick-peek-show (format "%s" msg)))
           (eldoc-display-in-echo-area (list it) interactive)))))
   (setq eldoc-documentation-strategy #'eldoc-documentation-compose)
-  (setq eldoc-display-functions '(eldoc-display-in-echo-area)))
+  (setq eldoc-display-functions '(eldoc-display-in-echo-area eldoc-display-in-buffer)))
 
 (provide 'colonq-flycheck)
 ;;; colonq-flycheck.el ends here

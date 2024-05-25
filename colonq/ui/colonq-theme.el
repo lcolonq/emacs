@@ -17,11 +17,17 @@
   :width 'normal
   :slant 'normal))
 
+;; (load-theme 'ef-rosa t)
+
 (use-package ef-themes
+  :load-path "~/src/ef-themes"
   :config
+  ;; (ef-themes-select 'ef-rosa)
+  ;; (ef-themes-select 'ef-maris-dark)
   ;; (ef-themes-select 'ef-tritanopia-dark)
-  (ef-themes-select 'ef-duo-dark)
-  ;; (ef-themes-select 'ef-bio)
+  ;; (ef-themes-select 'ef-duo-dark)
+  (ef-themes-select 'ef-bio)
+  ;; (ef-themes-select 'ef-autumn)
   (ef-themes-with-colors
     (setenv "COLONQ_BGCOLOR" bg-main)
     (set-face-attribute 'vertical-border nil

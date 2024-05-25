@@ -9,7 +9,7 @@
   :config
   (defhydra colonq/ide-fennel (:color teal :hint nil)
     "Dispatcher > Fennel IDE"
-    ("<escape>" keyboard-escape-quit)
+    ("<f12>" keyboard-escape-quit)
     ("r" fennel-repl "repl")
     ("RET" fennel-reload "load")
     ("D" fennel-find-definition "goto def"))

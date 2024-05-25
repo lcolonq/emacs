@@ -75,6 +75,7 @@
     (interactive)
     (cond ((eq major-mode 'exwm-mode) (call-interactively 'colonq/exwm-normal))
           ((evil-insert-state-p) (call-interactively 'evil-normal-state))
+          ((evil-visual-state-p) (call-interactively 'evil-exit-visual-state))
           (t nil)))
   (setq exwm-input-simulation-keys
         (list
@@ -96,7 +97,7 @@
            floating nil)))
   (setq exwm-input-global-keys
         (list
-         (cons (kbd "<escape>") 'colonq/exwm-escape)
+         (cons (kbd "<f12>") 'colonq/exwm-escape)
          (cons (kbd "<print>") 'colonq/screenshot)
          (cons (kbd "S-<print>") 'colonq/snip)))
 

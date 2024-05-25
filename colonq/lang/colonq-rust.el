@@ -10,7 +10,7 @@
   :config
   (defhydra colonq/ide-rust (:color teal :hint nil)
     "Dispatcher > Rust IDE"
-    ("<escape>" keyboard-escape-quit)
+    ("<f12>" keyboard-escape-quit)
     ("S" lsp-workspace-restart "start")
     ("i" lsp-execute-code-action "poke")
     ("e" flycheck-next-error "goto err")
@@ -24,4 +24,4 @@
   (add-hook 'rustic-mode-hook #'colonq/rust-setup))
 
 (provide 'colonq-rust)
-;;; colonq-rust ends here
+;;; colonq-rust.el ends here

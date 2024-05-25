@@ -23,6 +23,7 @@
   (evil-set-initial-state 'eshell-mode 'normal)
   (evil-set-initial-state 'term-mode 'normal)
   (evil-set-initial-state 'image-mode 'motion)
+  (evil-set-initial-state 'special-mode 'motion)
   (evil-set-initial-state 'pdf-view-mode 'motion)
   (evil-set-initial-state 'org-agenda-mode 'motion)
   (evil-set-initial-state 'compilation-mode 'motion)

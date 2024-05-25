@@ -14,7 +14,14 @@
     ("fugi reactive" . "https://discord-reactive-images.fugi.tech")
     ("orange website hn hacker news hackernews" . "https://news.ycombinator.com")
     ("learnxinyminutes learn x in y" . "https://learnxinyminutes.com")
-     ))
+    ("pubnix" . "https://pub.colonq.computer")
+    ("pubnix ring" . "https://pub.colonq.computer/~llll")
+    ("bells docs" . "https://pub.colonq.computer/~bezelea/bells")
+    ("bells songs dbzkai" . "https://pub.colonq.computer/~prod/toy/dbkai")
+    ("AFTER DARK PUSH" . "https://vdo.ninja?push=lcolonqafterdark")
+    ("oub" . "https://oub.colonq.computer")
+    ("nixos package search" . "https://search.nixos.org/packages")
+    ))
 
 (use-package shr
   :defer t
@@ -60,6 +67,14 @@
                  query)))
     (browse-url (concat "https://bulbapedia.bulbagarden.net/w/index.php?search=" query))))
 
+(defun colonq/search-yugipedia (&optional query)
+  "Search for QUERY on Yugipedia."
+  (interactive)
+  (let ((query (if (called-interactively-p 'any)
+                   (read-string "Query: " query)
+                 query)))
+    (browse-url (concat "https://yugipedia.com/index.php?search=" query))))
+
 (defun colonq/search-scryfall (&optional query)
   "Search for QUERY on Scryfall."
   (interactive)
@@ -97,6 +112,10 @@
           :type 'dummy
           :action (lambda (_) (colonq/search-bulbapedia (selector-input))))
          (selector-candidate-create
+          "Search Yugipedia"
+          :type 'dummy
+          :action (lambda (_) (colonq/search-yugipedia (selector-input))))
+         (selector-candidate-create
           "Search Scryfall"
           :type 'dummy
           :action (lambda (_) (colonq/search-scryfall (selector-input))))
@@ -116,7 +135,7 @@
 
 (defhydra colonq/browser-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
   "Dispatcher > Browser"
-  ("<escape>" keyboard-escape-quit)
+  ("<f12>" keyboard-escape-quit)
   ("b" colonq/visit-bookmark "bookmarks")
   ("u" colonq/browse-url "url")
   ("s" colonq/search-web "search"))

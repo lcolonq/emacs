@@ -49,6 +49,9 @@
       (eshell-send-eof-to-process)
     (kill-this-buffer)))
 
+(use-package esh-module)
+(add-to-list 'eshell-modules-list 'eshell-tramp)
+
 (use-package em-banner
   :config
   (setq eshell-banner-message ""))

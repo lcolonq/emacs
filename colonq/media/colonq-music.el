@@ -67,7 +67,7 @@
 
 (defhydra colonq/music-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
   "Dispatcher > Music"
-  ("<escape>" keyboard-escape-quit)
+  ("<f12>" keyboard-escape-quit)
   ("s" soundboard/hydra/body "soundboard")
   ("SPC" emms-pause "pause")
   ("<" emms-previous "prev")

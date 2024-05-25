@@ -13,7 +13,7 @@
   :config
   (defhydra colonq/ide-python (:color teal :hint nil)
     "Dispatcher > Python IDE"
-    ("<escape>" keyboard-escape-quit)
+    ("<f12>" keyboard-escape-quit)
     ("S" lsp-workspace-restart "start")
     ("v" poetry-venv-workon "venv")
     ("i" lsp-execute-code-action "poke")

@@ -7,7 +7,7 @@
 
 (defhydra colonq/ide-elisp (:color teal :hint nil)
   "Dispatcher > ELisp IDE"
-  ("<escape>" keyboard-escape-quit)
+  ("<f12>" keyboard-escape-quit)
   ("e" eval-defun "eval")
   ("i" eval-buffer "buffer")
   ("r" ielm "repl"))
@@ -25,6 +25,7 @@
                 ("f" . lispy-forward)
                 ("b" . lispy-back))))
 (add-hook 'emacs-lisp-mode-hook 'colonq/elisp-setup)
+(add-hook 'ielm-mode-hook 'colonq/elisp-setup)
 
 (provide 'colonq-elisp)
 ;;; colonq-elisp ends here

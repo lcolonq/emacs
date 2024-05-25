@@ -50,7 +50,7 @@
 
   (defhydra colonq/ide-org (:color teal :hint nil)
     "Dispatcher > Org IDE"
-    ("<escape>" keyboard-escape-quit)
+    ("<f12>" keyboard-escape-quit)
     ("i" org-ctrl-c-ctrl-c "poke")
     ("o" org-goto "goto")
     ("h" org-html-export-to-html "html")
@@ -99,6 +99,11 @@
 (use-package ox-extra
   :config
   (ox-extras-activate '(ignore-headlines)))
+
+(use-package ox-reveal
+  :custom
+  (org-reveal-title-slide nil)
+  (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
 
 (set-face-attribute 'org-todo nil :box nil)
 (set-face-attribute 'org-done nil :box nil)
