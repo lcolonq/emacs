@@ -112,5 +112,60 @@
 (set-face-attribute 'org-scheduled-today nil :foreground nil)
 (set-face-attribute 'org-agenda-date-today nil :foreground nil :background nil :weight 'normal :slant 'normal)
 
+(defvar org-roam-v2-ack t)
+(use-package org-roam
+  :custom
+  (emacsql-global-timeout 600) ;; otherwise, rebuilding the database will timeout
+  (org-roam-directory "~/notes")
+  (org-roam-encrypt-files t)
+  (org-roam-capture-templates nil)
+  (org-roam-dailies-capture-templates
+   '(("d" "daily" plain "%?"
+      :target (file+head "%<%Y-%m-%d>.org.gpg" "#+title: %<%Y-%m-%d>\n#+startup: latexpreview\n#+filetags: log")
+      :unnarrowed t
+      :immediate-finish t)))
+  (org-roam-completion-everywhere t)
+  (org-roam-link-auto-replace t)
+  :config
+  (org-roam-db-autosync-mode)
+  (defun colonq/org-roam-node-find-public ()
+    (interactive)
+    (let ((selector-completing-read-candidate-transformer
+           (lambda (x)
+             (let ((tags (org-roam-node-tags (plist-get (text-properties-at 0 x) 'node))))
+               (unless (-contains? tags "private")
+                 (s-concat x (if tags (s-concat " (:" (s-join " :" tags) ")") "")))))))
+      (org-roam-node-find
+       nil nil nil nil
+       :templates
+       '(("p" "public" plain "%?"
+          :target (file+head "public/%<%Y%m%d%H%M%S>-note.org" "#+title: ${title}\n#+filetags:")
+          :unnarrowed t
+          :immediate-finish t)))))
+  (defun colonq/org-roam-node-find-private ()
+    (interactive)
+    (let ((selector-completing-read-candidate-transformer
+           (lambda (x)
+             (let ((tags (org-roam-node-tags (plist-get (text-properties-at 0 x) 'node))))
+               (s-concat x (if tags (s-concat " (:" (s-join " :" tags) ")") ""))))))
+      (org-roam-node-find
+       nil nil nil nil
+       :templates
+       '(("v" "private" plain "%?"
+          :target (file+head "private/%<%Y%m%d%H%M%S>-note.org.gpg" "#+title: ${title}\n#+filetags: private")
+          :unnarrowed t
+          :immediate-finish t)))))
+  (defhydra colonq/agenda-dispatcher (:color teal :hint nil :body-pre (setq exwm-input-line-mode-passthrough t) :post (setq exwm-input-line-mode-passthrough nil))
+    "Quinine > Notes"
+    ("<f12>" keyboard-escape-quit)
+    ("a" org-roam-buffer-toggle "display")
+    ("A" cfw:open-org-calendar "calendar")
+    ("i" org-roam-node-insert "link")
+    ("f" colonq/org-roam-node-find-public "find")
+    ("F" colonq/org-roam-node-find-private "find")
+    ("p" org-publish "publish")
+    ("t" org-roam-dailies-find-today "daily")
+    ("T" org-roam-dailies-find-date)))
+
 (provide 'colonq-org)
 ;;; colonq-org ends here

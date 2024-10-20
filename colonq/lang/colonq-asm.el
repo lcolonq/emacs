@@ -5,7 +5,6 @@
 (require 'colonq-package)
 (require 'colonq-hydra)
 (require 'colonq-flycheck)
-(require 'colonq-company)
 
 (use-package asm-mode
   :config
@@ -20,7 +19,8 @@
       (call-interactively 'self-insert-command)
       (when labelp
         (delete-horizontal-space)
-        (company-cancel))))
+        ;; (company-cancel)
+        )))
 
   (defun colonq/asm-backtab ()
     "De-indent line."
@@ -33,7 +33,7 @@
     (flycheck-inline-mode)
     (setq-local indent-tabs-mode t)
     (setq-local tab-width 8)
-    (setq-local company-backends '((company-dabbrev-code)))
+    ;; (setq-local company-backends '((company-dabbrev-code)))
     (setq-local comment-start "# ")
     (electric-indent-local-mode -1)
     (local-unset-key (vector asm-comment-char))

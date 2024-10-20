@@ -99,28 +99,30 @@
 
   (defun colonq/navigate ()
     (interactive)
-    (selector (list (colonq/selector-active-buffers)
-                 (colonq/selector-project-buffers)
-                 (colonq/selector-exwm-buffers)
-                 (colonq/selector-unaffiliated-buffers)
-                 (colonq/selector-eshell-buffers)
-                 (colonq/selector-project-files)
-                 (colonq/selector-bookmarks)
-                 (selector-recentf-source)
-                 (colonq/selector-search)
-                 (colonq/selector-create-file-or-buffer))))
+    (selector
+     (list
+      (colonq/selector-active-buffers)
+      (colonq/selector-project-buffers)
+      (colonq/selector-exwm-buffers)
+      (colonq/selector-unaffiliated-buffers)
+      (colonq/selector-eshell-buffers)
+      (colonq/selector-project-files)
+      (colonq/selector-bookmarks)
+      (selector-recentf-source)
+      (colonq/selector-search)
+      (colonq/selector-create-file-or-buffer))))
 
   (defvar colonq/external-commands-list nil)
   (defun colonq/run-external-command ()
     (interactive)
     ;; (unless colonq/external-commands-list
-      (setq colonq/external-commands-list
-            (cl-loop
-             for dir in (split-string (getenv "PATH") path-separator)
-             when (and (file-exists-p dir) (file-accessible-directory-p dir))
-             for lsdir = (cl-loop for i in (directory-files dir t)
-                                  for bn = (file-name-nondirectory i)
-                                  when (and (not (member bn completions))
+    (setq colonq/external-commands-list
+          (cl-loop
+           for dir in (split-string (getenv "PATH") path-separator)
+           when (and (file-exists-p dir) (file-accessible-directory-p dir))
+           for lsdir = (cl-loop for i in (directory-files dir t)
+                                for bn = (file-name-nondirectory i)
+                                when (and (not (member bn completions))
                                             (not (file-directory-p i))
                                             (file-executable-p i))
                                   collect bn)

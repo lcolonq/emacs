@@ -17,14 +17,6 @@
 ;;   :config
 ;;   (exwm-systemtray-enable))
 
-(defun colonq/setup-stream ()
-  "Configure windows for streaming."
-  (interactive)
-  (eyebrowse-switch-to-window-config 0)
-  (split-window-horizontally -70)
-  (windmove-right)
-  (split-window-vertically -28))
-
 (defun colonq/external-monitor ()
   "Setup external monitor."
   (interactive)

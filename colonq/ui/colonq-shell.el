@@ -174,9 +174,12 @@
   (defun colonq/eshell-setup ()
     "Custom configuration for Eshell."
     (show-paren-mode -1)
-    (company-mode)
-    (setq-local company-backends '(company-pcomplete))
-    (setq-local company-idle-delay nil)
+    (o/mode)
+    (setq-local o/backends '(o/backend-fish))
+    (setq-local o/prefix-at-point-function #'o/fish-prefix-at-point)
+    ;; (company-mode)
+    ;; (setq-local company-backends '(company-pcomplete))
+    ;; (setq-local company-idle-delay nil)
     (defun eshell/clear ()
       (interactive)
       (let ((inhibit-read-only t))
@@ -189,7 +192,7 @@
     (setenv "TERM" "dumb")
     (setenv "PAGER" "cat")
     (setenv "EDITOR" "emacsclient")
-    (define-key eshell-mode-map (kbd "<tab>") 'company-complete)
+    ;; (define-key eshell-mode-map (kbd "<tab>") 'company-complete)
     (define-key eshell-mode-map (kbd "<backtab>") 'colonq/nop)
     (define-key eshell-mode-map (kbd "C-l") 'colonq/eshell-clear)
     (define-key eshell-mode-map (kbd "C-c") 'eshell-interrupt-process)
@@ -215,9 +218,9 @@
   :config
   (global-fish-completion-mode))
 
-(use-package direnv
+(use-package envrc
   :config
-  (direnv-mode))
+  (envrc-global-mode))
 
 (provide 'colonq-shell)
 ;;; colonq-shell ends here

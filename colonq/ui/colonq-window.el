@@ -61,5 +61,18 @@
   (global-set-key (kbd "M-K") #'buf-move-up)
   (global-set-key (kbd "M-J") #'buf-move-down))
 
+(advice-add
+ #'display-buffer
+ :around
+ (lambda (f buf &optional action frame)
+   (ignore action)
+   (funcall f buf nil frame)))
+
+(advice-add
+ #'set-window-dedicated-p
+ :around
+ (lambda (f window flag)
+   (ignore f window flag)))
+
 (provide 'colonq-window)
 ;;; colonq-window ends here

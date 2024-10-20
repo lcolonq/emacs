@@ -103,7 +103,7 @@
 
 (define-key comint-mode-map (kbd "C-l") #'comint-clear-buffer)
 (define-key comint-mode-map (kbd "C-d") #'colonq/comint-eof)
-(define-key comint-mode-map (kbd "<tab>") #'company-complete)
+;; (define-key comint-mode-map (kbd "<tab>") #'company-complete)
 
 ;; After everything is loaded, stop some pesky modes from binding q
 (define-key special-mode-map (kbd "q") 'colonq/dispatcher)

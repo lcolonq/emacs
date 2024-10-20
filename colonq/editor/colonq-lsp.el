@@ -11,6 +11,9 @@
 
 (setq read-process-output-max (* 1024 1024))
 
+(add-to-list 'load-path "~/src/lsp-mode")
+(add-to-list 'load-path "~/src/lsp-mode/clients")
+(add-to-list 'load-path "~/src/lsp-ui")
 (use-package lsp-mode
   :custom
   (lsp-lens-enable nil)
@@ -70,6 +73,8 @@
     (desktop-dont-save . t))
   "Frame parameters used to create the frame.")
 
+(use-package lsp-ui-doc)
+
 (defun lsp-ui-doc--move-frame (frame)
   "Place our FRAME on screen."
   (-let* (((left top right _bottom) (window-edges nil t nil t))
@@ -83,7 +88,7 @@
           (frame-right (pcase lsp-ui-doc-alignment
                          ('frame (frame-pixel-width))
                          ('window right)))
-          (frame-right (* 2 1920))
+          (frame-right (* 1920))
           ((left . top) (if (eq lsp-ui-doc-position 'at-point)
                             (lsp-ui-doc--mv-at-point width height left top)
                           (cons (max (- frame-right width char-w) 10)
@@ -129,6 +134,52 @@
     (lsp-ui-doc--fix-hr-props)
     (unless (frame-visible-p frame)
       (make-frame-visible frame))))
+
+(add-to-list 'load-path "~/src/dap-mode")
+(use-package dap-mode
+  :custom
+  (dap-auto-configure-features nil)
+  (dap-ui-buffer-configurations nil)
+  :config
+  (require 'dap-ui)
+  (require 'dap-js-debug)
+  (require 'dap-gdb-lldb)
+  (dap-mode 1)
+  (dap-auto-configure-mode 1))
+(use-package treemacs
+  :config
+  (setq treemacs-mode-map (make-keymap))
+  (evil-define-key 'motion treemacs-mode-map
+    (kbd "RET") #'treemacs-RET-action
+    (kbd "TAB") #'treemacs-TAB-action
+    )
+  )
+(defhydra colonq/dap-dispatcher (:color teal :hint nil)
+  "Dispatcher > Debugger"
+  ("<f12>" keyboard-escape-quit)
+  ("b" dap-breakpoint-toggle "breakpoint")
+  ("c" dap-continue "continue")
+  ("l" dap-go-to-output-buffer "log")
+  ("L" dap-ui-locals "locals")
+  ("B" dap-ui-breakpoints "breakpoints")
+  ("n" dap-next "next" :color red)
+  ("s" dap-step-in "step" :color red))
+;; let's not randomly pop up side windows
+(defun dap-ui--show-buffer (buf)
+  "Show BUF according to defined rules."
+  (display-buffer buf))
+(defun dap--create-output-buffer (session-name)
+  "Creates an output buffer with with name SESSION-NAME."
+  (with-current-buffer (get-buffer-create (concat "*" session-name " out*"))
+    (special-mode)
+    (set (make-local-variable 'window-point-insertion-type) t)
+    (setq-local colonq/contextual-kill 'bury-buffer)
+    (current-buffer)))
+(defun dap-go-to-output-buffer (&optional no-select)
+  "Go to output buffer."
+  (interactive)
+  (when (called-interactively-p 'any)
+    (display-buffer (dap--debug-session-output-buffer (dap--cur-session-or-die)))))
 
 ;; (use-package eglot
 ;;   :custom (eglot-stay-out-of '(eldoc-documentation-strategy)))

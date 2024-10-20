@@ -287,7 +287,7 @@ ACTIONS is a list of actions, which can be:
               selector--index 0
               selector--source 0
               selector--matching (selector-matching-sources selector--sources pattern))))
-    (-each (selector-nearby selector--matching) #'selector-display-source)
+    (-map #'selector-display-source (selector-nearby selector--matching))
     (goto-char (minibuffer-prompt-end))
     (put-text-property (line-end-position) (point-max) 'readonly t))
   (selector-update-transient-map))
@@ -303,7 +303,8 @@ ACTIONS is a list of actions, which can be:
       (insert initial)))
   (end-of-line)
   (selector-update-transient-map)
-  )
+  (when (fboundp 'evil-insert-state)
+    (evil-insert-state)))
 
 (defun selector-previous-source ()
   "Move to the previous source."
@@ -388,6 +389,8 @@ Use INITIAL as the initial input."
       (read-from-minibuffer (or prompt "pattern: ") nil selector-minibuffer-map)))
   (funcall selector--action selector--result))
 
+(defvar selector-completing-read-candidate-transformer (lambda (x) x))
+
 ;;;###autoload
 (defun selector-completing-read (prompt collection &optional predicate require-match
                                      initial-input hist def inherit-input-method)
@@ -408,29 +411,46 @@ INHERIT-INPUT-METHOD have the same meaning as in `completing-read'."
                     :action (lambda (_) (selector-input)))))))))
     (or
      (cond ((functionp collection)
-            (selector (cons (selector-source-create "Completions" :candidates (funcall collection "" nil t)) unspecified-source)
-                   :prompt prompt
-                   :initial initial-input))
+            (selector
+             (cons
+              (selector-source-create
+               "Completions"
+               :candidates
+               (-non-nil
+                (--map
+                 (when-let ((disp (funcall selector-completing-read-candidate-transformer it)))
+                   (selector-candidate-create disp :value it))
+                 (funcall collection "" nil t))))
+              unspecified-source)
+             :prompt prompt
+             :initial initial-input))
            ((hash-table-p collection)
-            (selector (cons (selector-source-create "Completions" :candidates (hash-table-keys collection)) unspecified-source)
-                   :prompt prompt
-                   :initial initial-input))
+            (selector
+             (cons
+              (selector-source-create
+               "Completions"
+               :candidates (hash-table-keys collection))
+              unspecified-source)
+             :prompt prompt
+             :initial initial-input))
            ((obarrayp collection)
             (let ((candidates (list)))
               (mapatoms (lambda (x) (push (selector-candidate-create (symbol-name x)) candidates)) collection)
-              (selector (cons (selector-source-create "Completions" :candidates candidates) unspecified-source)
-                     :prompt prompt
-                     :initial initial-input)))
-           (t (selector (cons (selector-source-create
-                            "Completions"
-                            :candidates
-                            (--map (if (consp it)
-                                       (selector-candidate-create (car it))
-                                     it)
-                                   collection))
-                           unspecified-source)
-                     :prompt prompt
-                     :initial initial-input)))
+              (selector
+               (cons (selector-source-create "Completions" :candidates candidates) unspecified-source)
+               :prompt prompt
+               :initial initial-input)))
+           (t (selector
+               (cons (selector-source-create
+                      "Completions"
+                      :candidates
+                      (--map (if (consp it)
+                                 (selector-candidate-create (car it))
+                               it)
+                             collection))
+                     unspecified-source)
+               :prompt prompt
+               :initial initial-input)))
      (selector-input))))
 
 (defun selector-input () "Return last minibuffer input." selector--last)

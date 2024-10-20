@@ -3,7 +3,7 @@
 ;;; Code:
 
 (add-to-list 'load-path "~/.emacs.d/colonq/editor")
-(require 'colonq-company)
+(require 'colonq-completion)
 (require 'colonq-flycheck)
 (require 'colonq-lsp)
 

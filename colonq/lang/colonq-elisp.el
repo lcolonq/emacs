@@ -15,6 +15,8 @@
 (defun colonq/elisp-setup ()
   "Custom configuration for ELisp programming."
   (outline-minor-mode)
+  (setf o/backends '(o/backend-elisp))
+  (o/mode)
   (setq-local colonq/contextual-ide #'colonq/ide-elisp/body)
   (setq-local colonq/contextual-lookup #'selector-apropos)
   (setq-local colonq/contextual-hyper-state-bindings

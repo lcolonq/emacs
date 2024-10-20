@@ -5,7 +5,7 @@
 (require 'colonq-package)
 (require 'colonq-hydra)
 
-(use-package company-auctex)
+;; (use-package company-auctex)
 
 (use-package tex
   :config
@@ -15,7 +15,8 @@
     ("<f12>" keyboard-escape-quit))
   (defun colonq/tex-setup ()
     (setq-local colonq/contextual-ide 'colonq/ide-tex/body)
-    (company-auctex-init))
+    ;; (company-auctex-init)
+    )
   (add-hook 'TeX-mode-hook #'colonq/tex-setup))
 
 (provide 'colonq-tex)

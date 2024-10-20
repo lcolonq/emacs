@@ -21,7 +21,7 @@
   :config
   (setq forth-executable "gforth")
   (evil-define-key 'insert forth-mode-map (kbd "RET") #'newline-and-indent)
-  (evil-define-key 'insert forth-mode-map (kbd "<tab>") #'company-complete)
+  ;; (evil-define-key 'insert forth-mode-map (kbd "<tab>") #'company-complete)
   (defun colonq/start-or-switch-to-forth ()
     (interactive)
     (if (and forth-interaction-buffer (buffer-live-p forth-interaction-buffer))

@@ -34,6 +34,7 @@
   (evil-set-initial-state 'magit-diff-mode 'motion)
   (evil-set-initial-state 'magit-stashes-mode 'motion)
   (evil-set-initial-state 'epa-key-list-mode 'motion)
+  (evil-set-initial-state 'fuel-debug-mode 'motion)
 
   (evil-set-initial-state 'magit-popup-mode 'emacs)
   (evil-set-initial-state 'exwm-mode 'emacs)

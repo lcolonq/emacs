@@ -19,6 +19,7 @@
     ("bells docs" . "https://pub.colonq.computer/~bezelea/bells")
     ("bells songs dbzkai" . "https://pub.colonq.computer/~prod/toy/dbkai")
     ("AFTER DARK PUSH" . "https://vdo.ninja?push=lcolonqafterdark")
+    ("localhost:8080" . "http://localhost:8080")
     ("oub" . "https://oub.colonq.computer")
     ("nixos package search" . "https://search.nixos.org/packages")
     ))
@@ -66,6 +67,14 @@
                    (read-string "Query: " query)
                  query)))
     (browse-url (concat "https://bulbapedia.bulbagarden.net/w/index.php?search=" query))))
+
+(defun colonq/search-nethackwiki (&optional query)
+  "Search for QUERY on Nethack Wiki."
+  (interactive)
+  (let ((query (if (called-interactively-p 'any)
+                   (read-string "Query: " query)
+                 query)))
+    (browse-url (concat "https://nethackwiki.com/w/index.php?search=" query))))
 
 (defun colonq/search-yugipedia (&optional query)
   "Search for QUERY on Yugipedia."
@@ -115,6 +124,10 @@
           "Search Yugipedia"
           :type 'dummy
           :action (lambda (_) (colonq/search-yugipedia (selector-input))))
+         (selector-candidate-create
+          "Search Nethack Wiki"
+          :type 'dummy
+          :action (lambda (_) (colonq/search-nethackwiki (selector-input))))
          (selector-candidate-create
           "Search Scryfall"
           :type 'dummy
